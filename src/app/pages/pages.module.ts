@@ -20,6 +20,7 @@ import { PAGES_ROUTES } from './pages.routes';
 //temporal
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 import { GraficadoughnutComponent } from '../components/graficadoughnut/graficadoughnut.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 
@@ -31,11 +32,12 @@ import { GraficadoughnutComponent } from '../components/graficadoughnut/graficad
     Graficas1Component,
     PagesComponent,
     IncrementadorComponent,
-    GraficadoughnutComponent
+    GraficadoughnutComponent,
+    AccountSettingsComponent
    
   ],
   imports: [
-    SharedModule,
+     SharedModule,
      PAGES_ROUTES,
      FormsModule,
      ChartsModule
