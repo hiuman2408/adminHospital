@@ -18,6 +18,8 @@ export class BreadcrumbsComponent implements OnInit {
     this.getDataRoute().subscribe(event=>{
       //console.log(event)
       this.titulo =event.titulo;
+
+      console.log("Pagina:"+this.titulo);
       this.title.setTitle( this.titulo ); //colocar titulo en barra superior 
       const metaTag: MetaDefinition = {
         name: 'description',
@@ -26,6 +28,8 @@ export class BreadcrumbsComponent implements OnInit {
       this.meta.updateTag( metaTag ); //tag para el buscado
   
     })
+
+   
   
    }
 
