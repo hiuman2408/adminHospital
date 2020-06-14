@@ -8,13 +8,15 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { LoginGuardGuard } from '../services/services.index';
+import { ProfileComponent } from './profile/profile.component';
 
 const PagesRoutes: Routes = [
     { path: '',
        component: PagesComponent,
        canActivate:[LoginGuardGuard],
        children:[
-          {  path: 'dashboard', component:DashboardComponent,data:{titulo:'Dashboard'} },
+          { path: 'dashboard', component:DashboardComponent,data:{titulo:'Dashboard'} },
+          {path: 'profile', component:ProfileComponent,data:{titulo:'Perfil Usuario'} },
           { path: 'progress', component:ProgressComponent,data:{titulo:'Progress'} },
           { path: 'graficas1', component:Graficas1Component,data:{titulo:'Graficas'} },
           { path: 'accountSettings', component: AccountSettingsComponent,data:{titulo:'Agustes del tema'} },

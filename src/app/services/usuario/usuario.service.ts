@@ -1,10 +1,13 @@
-import { Usuario } from './../../models/usuario.model';
+
+
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { URL_SERVICIOS } from '../../config/config';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
+import { Usuario } from '../../models/usuario.model';
+import { SubirArchvioService } from '../subir-archivo/subir-archvio.service';
 
 
 @Injectable({
@@ -17,7 +20,8 @@ export class UsuarioService {
   token:string;
 
   constructor( private http:HttpClient,
-               private router:Router) { 
+               private router:Router,
+               private _svSubirArchivo:SubirArchvioService) { 
 
     this.cargarToken();
     
@@ -89,6 +93,68 @@ export class UsuarioService {
     this.router.navigateByUrl('/login');
 
   }
+
+//ACTUALIZAR  PERFIL DEL USURIO (NOMBRE , EMAIL )
+
+  actualizarProfile(usuario:Usuario){
+
+    let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+        url += '?token=' + this.token;
+
+    return this.http.put(url,usuario).pipe(map((resp:any)=>{
+
+      
+        let usuarioDB: Usuario = resp.usuario;
+  
+        this.guardarLocalStorage(usuarioDB._id,this.token,usuarioDB,usuarioDB.email)
+  
+        Swal.fire('Usuario actualizado',
+                   usuario.nombre, 
+                   'success' );
+
+        return true 
+
+
+    }))
+
+  }
+
+//ACTUALIZAR IMAGEN DE PERFIL
+
+  cambiarImagen( archivo: File, id: string ) {
+
+    this. _svSubirArchivo.subirArchivo( archivo, 'usuarios', id )
+          .then( (resp: any) => {
+
+            this.usuario.image = resp.usuario.image;
+
+            Swal.fire( 'Imagen Actualizada', this.usuario.nombre, 'success' );
+
+            this.guardarLocalStorage( id, this.token, this.usuario,this.usuario.email);
+
+          })
+          .catch( resp => {
+            console.log( resp );
+          }) ;
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -20,10 +20,17 @@ export class LoginComponent implements OnInit {
   correo:string
   recordarEmail:boolean = false;
 
+
+ // usuario:Usuario;
+
   auth2:any //informacion que viene de google
 
   constructor(private router:Router,
             private _serviceUser:UsuarioService) { 
+
+             // this.usuario = _serviceUser.usuario;///lalmaos al usuario
+             // console.log(this.usuario)
+
     
     }
 
@@ -33,6 +40,10 @@ export class LoginComponent implements OnInit {
     init_plugins();
 
     this.googleInit();
+
+    if(localStorage.getItem('token')){
+      this.router.navigate([ '/dashboard' ])
+    }
 
     if(localStorage.getItem('email')){
       this.correo =localStorage.getItem('email')
