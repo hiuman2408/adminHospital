@@ -1,4 +1,5 @@
 
+
 import {  Routes ,RouterModule} from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -9,6 +10,7 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { LoginGuardGuard } from '../services/services.index';
 import { ProfileComponent } from './profile/profile.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 const PagesRoutes: Routes = [
     { path: '',
@@ -23,6 +25,8 @@ const PagesRoutes: Routes = [
           { path: 'promesas', component: PromesasComponent,data:{titulo:'Promesas'} },
           { path: 'rxjs', component:RxjsComponent,data:{titulo:'Observable RxJs'} },
           { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+          //mantenimiento
+          {path: 'usuarios', component:UsuariosComponent,data:{titulo:'Mantenimiento Usuarios'} },
           ]
    }   
  ];

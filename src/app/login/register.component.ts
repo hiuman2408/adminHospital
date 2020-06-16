@@ -104,6 +104,8 @@ export class RegisterComponent implements OnInit {
     this._usuarioService.crearusuario(usuario).subscribe(result=>{
 
          // console.log(result)
+
+         localStorage.setItem('email',usuario.email)
   
          this.router.navigate(['/login']);
     })

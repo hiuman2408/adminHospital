@@ -18,15 +18,20 @@
                 <li class="nav-small-cap">PERSONAL</li>
                 <li *ngFor="let menu of _sSidebar.menu"> 
                     <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                        <i class="mdi mdi-gauge"></i>
+                        <i class="{{menu.icono}}"></i>
                         <span class="hide-menu">{{menu.titulo}} 
                         <span class="label label-rouded label-themecolor pull-right">
                          {{menu.submenu.length}}
-                        </span></span></a>
+                        </span></span>
+                    </a>
                     
                     <ul aria-expanded="false" class="collapse">
                         <li *ngFor="let submenu of menu.submenu">
-                            <a routerLinkActive="active" [routerLink]="[submenu.url]">{{submenu.titulo}}</a>
+                            
+                            <a routerLinkActive="active" [routerLink]="[submenu.url]">
+                                <i class="{{submenu.iconoSub}}"></i>
+                                {{submenu.titulo}}
+                            </a>
                         </li>
                         
                     </ul>

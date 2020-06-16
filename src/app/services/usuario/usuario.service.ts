@@ -140,20 +140,68 @@ export class UsuarioService {
   }
 
 
+  // CARGAR TODOS LOS USUARIOS
+
+  cargarAllUsuarios( desde: number = 0 ) {
+
+    let url = URL_SERVICIOS + '/usuario?desde=' + desde;
+    return this.http.get( url );
+
+  }
+
+  //BUSCAR USUARIOS
+
+  buscarUsuario(termino:string,desde:number){
+
+    let url=URL_SERVICIOS+'/busqueda/coleccion/usuarios/'+termino+'?desde='+desde;
+
+    return this.http.get(url);
+
+  }
+
+  //ACTUALIZAR USUARIO (ROL)
+
+  actualizarUsuario(usuario:Usuario){
+
+    let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+        url += '?token=' + this.token;
+
+    return this.http.put(url,usuario).pipe(map((resp:any)=>{
+
+       //console.log(resp);
+      if ( usuario._id === this.usuario._id ) {
+        let usuarioDB: Usuario = resp.usuario;
+  
+        this.guardarLocalStorage(usuarioDB._id,this.token,usuarioDB,usuarioDB.email)
+  
+      }
+
+       
+        Swal.fire('Usuario actualizado',
+                   usuario.nombre, 
+                   'success' );
+
+        return true 
+
+
+    }))
+
+  }
+
+  // ELIMINAR USUARIOS
+
+  eliminarUsuario(id:string){ 
+
+    let url = URL_SERVICIOS+'/usuario/'+id+'?token='+ this.token;
+    return this.http.delete( url ).pipe(
+                map( resp => {
+                  Swal.fire('Usuario borrado', 'El usuario a sido eliminado correctamente', 'success');
+                  return true;
+                }))
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+  }
 
 
 

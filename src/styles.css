@@ -1,5 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    font-family: 'Cabin Condensed', sans-serif;
+    /*font-family: 'Varela', sans-serif;*/
+    /*font-family: 'Source Sans Pro', sans-serif;*/
+    font-weight: 400;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 16px
+ }
+
+
 #themecolors a {
     cursor: pointer;
 }
