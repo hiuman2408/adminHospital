@@ -39,11 +39,12 @@ export class UsuariosComponent implements OnInit {
 
             // console.log(resp)
 
-            Swal.fire( 'Imagen Actualizada',resp.usuario.nombre, 'success' );
+            Swal.fire( 'Imagen Actualizada', '', 'success' );
 
-            if(this.terminoBusqueda.length<=0){
+            if(this.terminoBusqueda.length <= 0){
               //carga los usuarios
               this.cargarUsuarios() ;
+              this.terminoBusqueda='';
 
             }else{
                 //carga los usuarios por busqueda
@@ -147,6 +148,7 @@ export class UsuariosComponent implements OnInit {
   
      this.desde=0;
      this.paginaActiva=0;
+     this.terminoBusqueda='';
      
       this.cargarUsuarios();
       return;
@@ -180,7 +182,7 @@ export class UsuariosComponent implements OnInit {
    }
 
 
-    this._svModalUpload.mostrarModal('usuarios',id,image);
+    this._svModalUpload.mostrarModal('usuarios',id,image,'usuario');
    
      
   

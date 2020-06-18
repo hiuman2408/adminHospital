@@ -1,5 +1,5 @@
 import { ModalUploadService } from './modal-upload.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import Swal from 'sweetalert2'
 import { SubirArchvioService } from '../../services/subir-archivo/subir-archvio.service';
 @Component({
@@ -9,10 +9,12 @@ import { SubirArchvioService } from '../../services/subir-archivo/subir-archvio.
 })
 export class ModalUploadComponent implements OnInit {
 
+  @ViewChild('myInput',{static: false}) myInputVariable: ElementRef; //para eliminar datos caja file
   
+  imagenTemp: string='';
+  file:string;
   
-  imagenTemp: string;
-  imagenSubir:File;
+  imagenSubir:File=null;
   constructor(public _svsubirArchivo:SubirArchvioService,
               public _svModalUploadServide:ModalUploadService) { 
     
@@ -23,10 +25,12 @@ export class ModalUploadComponent implements OnInit {
 
   ocultarModal(){
 
-  this.imagenTemp=null;
+ 
+  this.imagenTemp='';
   this.imagenSubir=null;
   this._svModalUploadServide.ocultarModal(); //para ocultar modal
-  }
+  this.myInputVariable.nativeElement.value = "";
+}
 
   subirImagen(){
 

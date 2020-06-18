@@ -1,0 +1,84 @@
+<div class="row animated fadeIn">
+
+    <div class="col-md-6">
+        <div class="card card-body">
+            <h3 class="box-title m-b-0">Médico: {{ medico.nombre }}</h3>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+
+                    <form
+                           ngNativeValidate 
+                           [formGroup]='medicoForm' 
+                            (ngSubmit)="guardarMedico()">
+                        <div class="form-group">
+                            <label>Nombre del médico</label>
+                            <input formControlName="nombre"  type="text"  class="form-control" placeholder="Nombre del médico" required>
+
+                            <div *ngIf="nombre.errors?.required && nombre.dirty">
+                                <p class="text-danger">
+                                    Ingrese su nombre 
+                                </p>
+        
+                            </div>
+                            <div *ngIf="!nombre.errors">
+                                <p class="text-success">
+                                    correcto
+                                </p>
+        
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Hospital</label>
+                            <select (change)="cambioHospital( $event.target.value )" formControlName="hospital"  class="form-control" required>
+                              <option value="" disabled>Seleccione Hospital</option>
+
+                              <option *ngFor="let hospital of hospitales" [value]="hospital._id">
+                                {{ hospital.nombre }}
+                              </option>
+                            </select>
+
+                            <div *ngIf="hospital1.errors?.required && hospital1.dirty">
+
+                                <p class="text-danger"> Debe selecinar Un Hospital</p>
+                                
+                            </div>
+                            <div *ngIf="!hospital1.errors">
+                                <p class="text-success">
+                                    correcto
+                                </p>
+        
+                            </div>
+
+                        </div>
+
+
+                        <button type="submit" [disabled]="medicoForm.invalid" class="btn btn-success waves-effect waves-light m-r-10">
+                          <i class="fa fa-save"></i>
+                          Guardar
+                        </button>
+                        <a routerLink="/medicos" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="card card-body">
+            <h4 class="box-title m-b-0">Hospital</h4>
+
+            <img [src]="hospital.image | imagen:'hospital'" class="rounded img-fluid">
+        </div>
+    </div>
+
+    <div class="col-md-3" *ngIf="medico._id">
+        <div class="card card-body">
+            <h4 class="box-title m-b-0">Fotografía</h4>
+
+            <img (click)="cambiarFoto(medico)" [src]="medico.image | imagen:'medico'" class="img-circle img-fluid pointer w150">
+        </div>
+    </div>
+
+</div>

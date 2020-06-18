@@ -13,10 +13,11 @@
                 </div>
                 <div class="modal-body text-center">
 
-                    <img *ngIf="!imagenTemp" [src]="_svModalUploadServide.imageUsuario|imagen" class="w150">
+                    <img *ngIf="!imagenTemp" [src]="_svModalUploadServide.imageUsuario|imagen:_svModalUploadServide.tipoImagen" class="w150">
                     <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150">
 
-                    <input  (change)="previsualizarImagen($event)" type="file" class="form-control mt-2">
+                    <input #myInput (change)="previsualizarImagen($event)" type="file"  
+                           class="form-control mt-2">
 
                 </div>
                 <div class="modal-footer">
