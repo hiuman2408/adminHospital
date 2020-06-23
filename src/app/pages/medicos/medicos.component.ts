@@ -3,6 +3,7 @@ import { Medico } from '../../models/medico.model';
 import { MedicoService } from '../../services/services.index';
 import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 import Swal from 'sweetalert2';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-medicos',
   templateUrl: './medicos.component.html',
@@ -36,7 +37,9 @@ export class MedicosComponent implements OnInit {
                           Swal.fire( 'Imagen Actualizada', '', 'success' );
 
                           if(this.terminoBusqueda.length <=0){
+
                             this.cargarMedicos();
+                            
                             this.terminoBusqueda='';
                           }else{
                             this._svmedico.buscarMedico(this.terminoBusqueda,this.desde)
@@ -56,7 +59,8 @@ export class MedicosComponent implements OnInit {
 
   }
 
-    cargarMedicos(){
+  //cargar medicos
+  cargarMedicos(){
   
      this._svmedico.cargarAllMedicos(this.desde)
                    .subscribe((resp:any)=>{
@@ -76,7 +80,7 @@ export class MedicosComponent implements OnInit {
       
     }
 
-
+    //BUSCARM MEDICOS
     buscarMedico(termino:string ){
 
 
@@ -131,16 +135,10 @@ export class MedicosComponent implements OnInit {
   
    
 
-
-
-
-
-
-
-
-    //ACTUALIZAR IMAGEN DE HOSPITAL
+    //ACTUALIZAR IMAGEN DE Medico
   
     actualizarImagen(medico:Medico){
+
       this._svModalUpload.mostrarModal('medicos',medico._id,medico.image,'medico')
   
     }
@@ -150,14 +148,12 @@ export class MedicosComponent implements OnInit {
     pages(numpag:number){
     
       for (let index = 0; index<numpag; index++) {
-     
-         this.paginas.push(index) //areglo de paginas
-      
+         this.paginas.push(index) //areglo de paginas 
       }
-     
+   
     }
   
-  
+
     pagination(pagina){
   
       this.paginaActiva=pagina;
@@ -176,9 +172,6 @@ export class MedicosComponent implements OnInit {
                       this.cargando= false;
               
        })
-
-
-
 
       }
   

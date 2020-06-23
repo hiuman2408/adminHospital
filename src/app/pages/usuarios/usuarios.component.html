@@ -33,7 +33,8 @@
 </div>
 
 
-<div class="row animated fadeIn" *ngIf="!cargando && usuarios.length!=0">
+<!---   -->
+<div class="row animated fadeIn">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -106,6 +107,7 @@
             
 
                 <div  class="mt-2 mr-5 float-right">
+                    
                     <button  [disabled]="paginaActiva==0" (click)="pagination(paginaActiva-1)"  class="btn btn-info"><i class="mdi mdi-skip-backward"></i></button>
                  
                     <button  *ngFor="let pagina of paginas"  [ngClass]="{'active':paginaActiva===pagina}" class="btn btn-secondary" (click)="pagination(pagina)"> {{pagina+1}}</button>

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UsuarioService } from '../services/services.index';
 
+
 declare function init_plugins();
 
 declare const gapi:any //libreria caundo importamos script de google

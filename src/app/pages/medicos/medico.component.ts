@@ -15,11 +15,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class MedicoComponent implements OnInit {
 
   medicoForm: FormGroup;
-  
   hospitales: Hospital[] = [];
-
   medico: Medico = new Medico('', '', '', '', '');
-  
   hospital: Hospital = new Hospital('');
 
   
@@ -36,8 +33,9 @@ export class MedicoComponent implements OnInit {
         let id = resp['id'];
 
         if ( id !== 'nuevo' ) {
-          this.cargarMedico(id);
 
+          this.cargarMedico(id);
+      
           this.medicoForm= this.crearFromGroup();
           
         }else{
@@ -52,6 +50,8 @@ export class MedicoComponent implements OnInit {
 
 
   ngOnInit() {
+
+    //CARGAR HOPSITALES EN EL SELECT 
 
     this._svHospital.allHospitales().subscribe((data:any)=>{
 
@@ -75,8 +75,12 @@ export class MedicoComponent implements OnInit {
 
     this._svMedico.obtenerMedico(id).subscribe((resp:any)=>{
     
+      //PARA MOSTAR LA IMGEN DEL HOSPITAL
       this.hospital.image = resp.medico.hospital['image'];
+
       this.medico=resp.medico
+      
+      //PARA EL FORMULARIO REACTIVO
       this.medico.hospital = resp.medico.hospital['_id'];
       this.medico.nombre = resp.medico.nombre;
       this.medicoForm= this.crearFromGroup();
@@ -99,9 +103,8 @@ export class MedicoComponent implements OnInit {
    
     this._svMedico.guardarMedico(this.medico).subscribe(resp=>{
 
-    
             this.medico._id = resp._id;
-      
+   
             this.router.navigate(['/medico', resp._id ]);
             
     })

@@ -23,7 +23,7 @@ export class UsuariosComponent implements OnInit {
 
  //para la otra forma de paginar
  numPaginas:number;
- paginas:any[];     //arreglo de paginas  
+ paginas:any[]=[];     //arreglo de paginas  
  paginaActiva:number=0;   //pagina Activa actual
  
 

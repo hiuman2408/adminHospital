@@ -19,7 +19,7 @@ export class BreadcrumbsComponent implements OnInit {
       //console.log(event)
       this.titulo =event.titulo;
 
-      console.log("Pagina:"+this.titulo);
+     // console.log("Pagina:"+this.titulo);
       this.title.setTitle( this.titulo ); //colocar titulo en barra superior 
       const metaTag: MetaDefinition = {
         name: 'description',

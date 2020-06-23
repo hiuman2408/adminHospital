@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 import { UsuarioService } from '../services/services.index';
 import { Usuario } from '../models/usuario.model';
-
 import Swal from 'sweetalert2'
+import { MyValidations } from '../validations/my-validations';
 declare function init_plugins(); //par que desparesca el loooding
 
 @Component({
@@ -20,6 +20,9 @@ export class RegisterComponent implements OnInit {
   
   usuarioForm: FormGroup;
 
+  estadoEmail:string='';
+
+
   constructor( private _usuarioService:UsuarioService,
                private router:Router) { }
 
@@ -30,27 +33,33 @@ export class RegisterComponent implements OnInit {
 
     this.usuarioForm = new FormGroup({
       nombre: new FormControl('',Validators.required),
-      correo: new FormControl(null,[Validators.required,Validators.pattern(this.emailPattern)]
+      correo: new FormControl(null,[Validators.required,Validators.pattern(this.emailPattern)],MyValidations.validateEmail(this._usuarioService)
       ),
       password: new FormControl(null,Validators.required),
       password2: new FormControl(null,Validators.required),
       condiciones: new FormControl(false)
-    },{ validators:this.sonIguales('password','password2') }); //OARA VALIDAR SI LAS PSSWORDS SONIGUALERS 
+    },
+  //  { validators:this.sonIguales('password','password2')}
+   { validators:this.sonIguales('password','password2')}
+    
+    ); //OARA VALIDAR SI LAS PSSWORDS SONIGUALERS 
 
 
     //PAR4A LLENAR DATOS EN EL FORMULARIO
 
     this.usuarioForm.setValue({
-      nombre:'uribe Viloslda',
+      nombre:'Hitler Uribe Villoslada Molina',
       correo:'hiuman2408@gmail.com',
       password:'123456',
       password2:'123456',
       condiciones:true
 
-    });
+    })
     
   }
 
+
+  
 
 
   //FUNCON PARA VALIDADR LAS CONTRASEÑAS
@@ -101,21 +110,18 @@ export class RegisterComponent implements OnInit {
   
     )
 
-    this._usuarioService.crearusuario(usuario).subscribe(result=>{
+    this._usuarioService.crearusuario(usuario).subscribe((result:any)=>{
 
-         // console.log(result)
+      
+         if(result){
 
-         localStorage.setItem('email',usuario.email)
-  
-         this.router.navigate(['/login']);
+          localStorage.setItem('email',result.email)
+          this.router.navigate(['/login']);
+         }
+        
     })
 
-    //console.log(this.usuarioForm.value);
   }
-
-
-
-
 
   get nombre() { return this.usuarioForm.get('nombre'); }
   get correo() { return this.usuarioForm.get('correo'); }

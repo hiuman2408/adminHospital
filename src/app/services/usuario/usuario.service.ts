@@ -3,11 +3,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { URL_SERVICIOS } from '../../config/config';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
 import { Usuario } from '../../models/usuario.model';
 import { SubirArchvioService } from '../subir-archivo/subir-archvio.service';
+import { throwError, of } from 'rxjs';
 
 
 @Injectable({
@@ -35,14 +36,25 @@ export class UsuarioService {
 
      return this.http.post(url,usuario).pipe(map( (resp:any)=>{
 
-      Swal.fire(
-        'Usuario Creado',
-        resp.usuario.email,
-        'success'
-      )
-      return resp.usuario
+              Swal.fire(
+                'Usuario Creado',
+                resp.usuario.email,
+                'success'
+              )
+              return resp.usuario
 
-     }));
+     }),catchError(err => {
+
+      
+            Swal.fire(
+              err.error.mensaje,
+              err.error.errors.message,
+              'warning'
+            )
+      
+              
+              return of();
+    }));
 
   }
 
@@ -56,8 +68,20 @@ export class UsuarioService {
 
           this.guardarLocalStorage(resp.id,resp.token,resp.usuario,email)
 
-      return true;
-    }))
+            return true;
+
+            }),catchError(err => {
+
+             // console.log( err.error.mensaje);
+              Swal.fire(
+                'Error en el login',
+                err.error.mensaje,
+                'warning'
+              )
+
+              
+              return of();
+          }));
 
   }
 
@@ -71,12 +95,23 @@ export class UsuarioService {
     return this.http.post(url,{token}).pipe(map((resp:any)=>{
 
       
-     this.guardarLocalStorage(resp.id,resp.token,resp.usuario,resp.usuario.email)
-
-       //console.log(resp)
-
-      return true;
-    }))
+             this.guardarLocalStorage(resp.id,resp.token,resp.usuario,resp.usuario.email)
+        
+               //console.log(resp)
+        
+              return true;
+            }),catchError(err => {
+        
+              //console.log( err.error.mensaje);
+              Swal.fire(
+                'Error en el login',
+                err.error.mensaje,
+                'warning'
+              )
+        
+              
+              return of([]);
+          }));
 
   }
 
@@ -115,7 +150,18 @@ export class UsuarioService {
         return true 
 
 
-    }))
+    }),catchError(err => {
+
+
+      Swal.fire(
+        err.error.mensaje,
+        err.error.errors.message,
+        'warning'
+      )
+
+        
+        return of([]);
+    }));
 
   }
 
@@ -184,7 +230,18 @@ export class UsuarioService {
         return true 
 
 
-    }))
+    }),catchError(err => {
+
+      Swal.fire(
+        err.error.mensaje,
+        err.error.errors.message,
+        'warning'
+      )
+
+        
+        return of([]);
+    }));
+
 
   }
 
@@ -201,6 +258,14 @@ export class UsuarioService {
 
 
 
+  }
+
+  //VERIFICA SI EXXISTE EL CORRE EN LA BASE DE DATOS
+  verificaCorreo(email:string){
+
+    let url=URL_SERVICIOS+'/usuario/correo?email='+email;
+
+    return this.http.get(url);
   }
 
 

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
@@ -16,7 +14,8 @@ export class HospitalService {
   constructor(private http:HttpClient,
     private _svUsuarios:UsuarioService) { }
 
-   // CARGAR TODOS LOS USUARIOS
+   
+ // CARGAR TODOS LOS USUARIOS
 
 cargarAllUsuarios( desde: number = 0 ) {
 

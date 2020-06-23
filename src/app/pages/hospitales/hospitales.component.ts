@@ -16,13 +16,10 @@ export class HospitalesComponent implements OnInit {
 
   hospitales:Hospital[]=[];
   desde: number = 0;   //para la paginacion
-  
-  terminoBusqueda:string='';
 
+  terminoBusqueda:string='';
   totalRegistros: number = 0; //total Usuarios
   cargando: boolean = true;   //para el looding
-
-
  //para la otra forma de paginar
  numPaginas:number;
  paginas:any[]=[];     //arreglo de paginas  
@@ -38,14 +35,11 @@ export class HospitalesComponent implements OnInit {
     this.cargarHospitales();
     this._svModalUpload.notificacion
           .subscribe( resp =>{
-
-           
+  
             Swal.fire( 'Imagen Actualizada','', 'success' );
-
             if(this.terminoBusqueda.length<=0){
               //carga los usuarios
               this.cargarHospitales();
-
             }else{
                 //carga los usuarios por busqueda
                 this._svHospital.buscarHopital(this.terminoBusqueda,this.desde)
@@ -108,14 +102,7 @@ export class HospitalesComponent implements OnInit {
                this.pages(Math.ceil(this.numPaginas)); //PARA LA OTRA FORMA DE PAGINAR
                //console.log(this.hospitales)
      
-     });
-
-
-     
-
-     
-
-     
+     });    
 
   }
 
@@ -164,7 +151,7 @@ export class HospitalesComponent implements OnInit {
    
   //ELIMINAR Hospiatl
   
-  eliminarUsuario(hospital:Hospital){
+  eliminarHospital(hospital:Hospital){
   
     
   
@@ -200,7 +187,7 @@ export class HospitalesComponent implements OnInit {
   }
 
 
-  //****OTRA FORMA DE PAGINAR 
+  //Paginar
   pages(numpag:number){
   
     for (let index = 0; index<numpag; index++) {
@@ -213,8 +200,6 @@ export class HospitalesComponent implements OnInit {
 
   pagination(pagina){
 
-
-    
     this.paginaActiva=pagina;
 
     this.desde = pagina*5;
@@ -235,8 +220,6 @@ export class HospitalesComponent implements OnInit {
   
     }
   }
- 
-
 
 
 }

@@ -16,16 +16,16 @@
                         >
                     </div>
 
-                    <div *ngIf="nombre.errors?.required">
-                        <p class="text-danger">
+                    <div *ngIf="nombre.errors?.required && nombre.dirty">
+                        <h6 class="text-danger">
                             Ingrese su nombre 
-                        </p>
+                        </h6>
 
                     </div>
                     <div *ngIf="!nombre.errors">
-                        <p class="text-success">
+                        <h6 class="text-success">
                             correcto
-                        </p>
+                        </h6>
 
                     </div>
 
@@ -33,21 +33,28 @@
                 </div>
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <input class="form-control" formControlName="correo"  name="correo" type="email" required placeholder="Correo">
+                        <input class="form-control" formControlName="correo" 
+                        name="correo" 
+                        type="email" 
+                        required placeholder="Correo"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
                     </div>
 
                     <div *ngIf="correo.errors?.pattern">
+                        <h6 class="text-danger"> Error:Formato ejemplo@test.com </h6>
 
-                        <small class="text-danger"> El Formato no es el correcto ejemplo@test.com</small>
                         
-
+                    
                     </div>
+
+                    <div *ngIf="correo.errors?.existe">
+                        <h6 class="text-danger">Existe Un Usuario con este email</h6>   
+                    </div>
+
                     <div *ngIf="!correo.errors">
-                        <p class="text-success">
-                            correcto
-                        </p>
-
+                        <h6 class="text-success">Correo disponible</h6>   
                     </div>
+
                 </div>
                 
 
@@ -64,9 +71,9 @@
                     </div>
 
                     <div *ngIf="usuarioForm.errors?.sonIguales && !usuarioForm.pristine">
-                        <p class="text-danger">
-                            <small> Las Contaseñas debe ser iguales</small> 
-                         </p>
+                        <h6 class="text-danger">
+                             Las Contaseñas debe ser iguales
+                        </h6>
 
                     </div>
                 </div>

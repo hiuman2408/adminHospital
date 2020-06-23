@@ -14,22 +14,22 @@
                         <li><a  class="pointer" (click)='_svUsuario.logaut()' >Logout</a></li>
                     </ul>
                 </li>
+                
                 <li class="nav-devider"></li>
                 <li class="nav-small-cap">PERSONAL</li>
-                <li *ngFor="let menu of _sSidebar.menu"> 
+                <li *ngFor="let menu of menu1, let i=index"> 
                     <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
                         <i class="{{menu.icono}}"></i>
                         <span class="hide-menu">{{menu.titulo}} 
                         <span class="label label-rouded label-themecolor pull-right">
-                         {{menu.submenu.length}}
+                            
                         </span></span>
                     </a>
                     
                     <ul aria-expanded="false" class="collapse">
-                        <li *ngFor="let submenu of menu.submenu">
-                            
+                        <li *ngFor="let submenu of submenu[i]">
                             <a routerLinkActive="active" [routerLink]="[submenu.url]">
-                                <i class="{{submenu.iconoSub}}"></i>
+                                <i class="{{submenu.icono}}"></i>
                                 {{submenu.titulo}}
                             </a>
                         </li>
